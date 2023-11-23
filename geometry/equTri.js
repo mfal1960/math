@@ -1,5 +1,5 @@
 //type = up,down,left,or right"
-export function drawEquTri(ctx,x,y,wid,clr,type){
+function drawEquTri(ctx,x,y,wid,clr,type){
  if(type=="up"){equTriUp();}
  if(type=="down"){equTriDown();}
  if(type=="right"){equTriRight();}

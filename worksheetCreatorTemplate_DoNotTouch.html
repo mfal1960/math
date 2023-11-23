@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet Creator</title>
+    <link rel="shortcut icon" href="#">
+    <style>
+        body{
+            background-color:white;
+            color:black;
+            margin:5px;
+
+
+        }
+        #headWSPag{
+            display:flex;
+            justify-content:center;
+            margin:0px;
+            display:visible;
+          
+        }
+        input{
+            width:20px;
+            height:20px;
+            margin:5px;
+           
+        }
+        #resetAllBtn{
+           
+            background-color:blue;
+            color:white;  
+                
+        }
+        #submitBtn{
+           
+            background-color: green;
+            color:white;
+          }
+        #printBtn{
+        
+            background-color: mediumaquamarine;
+            color:white;
+        }
+        .top{
+            display:flex;
+            justify-content: center;               
+        }
+       
+    </style>
+   <!-- **********STEP 1: ADD LOCATION TO SCRIPT********** -->   
+    <script type="text/javascript" src="./problems/rec.js"> </script> 
+    <script type="text/javascript" src="./problems/circle.js"> </script>
+    <script type="text/javascript" src="./problems/equTri.js"> </script>
+    <!-- **********END STEP 1: ADD LOCATION TO SCRIPT END********** --> 
+    
+</head>
+<body>  
+<h1 id="headWSPag">Create Worksheet</h1>
+<div class="top">
+   
+    <button id="submitBtn" >Submit</button>
+    <button id="resetAllBtn">Reset All</button>
+    <button id="printBtn">Print Page</button>  
+</div>
+    <div id="p1"></div>
+    <div id="boxes"></div>
+    
+    
+    
+    <br>
+    <br>
+   
+    <script>
+        //**********STEP 2: CHANGE NUMBER AS YOU ADD FILES**********
+        let numOfProb=3;
+        //**********END STEP 2: CHANGE NUMBER AS YOU ADD FILES  END**********
+
+        printBtn.style.display="none";
+        
+        for(let i=0; i<numOfProb;i++){
+        let boxes=document.getElementById("boxes");
+        const num = document.createElement("input");
+        num.setAttribute("id","class","value");
+        const lab = document.createElement("label");
+        lab.setAttribute("id", "class", "name");
+        const br = document.createElement("br");
+        num.id="nId"+i;    
+        lab.id="lId"+i;  
+        boxes.appendChild(num);
+        boxes.appendChild(lab);
+        boxes.appendChild(br);
+        }
+    
+     let problems=[]; 
+     let problemsSelect=[];
+    
+     
+     //**********STEP 3: WRITE PROBLEM INFO HERE ********** 
+     //Change loc,  innerHTML, call
+     document.getElementById("lId0").innerHTML="problem 1  size=250";
+     problems.push({loc:"./problems/rec.js",call:function(){rec()},siz:"250",numProb:"",pageSum:"",pagePlace:""});
+    
+     document.getElementById("lId1").innerHTML="problem 2  size=250";
+     problems.push({loc:"./problems/circle.js",call:function(){circle()},siz:"250",numProb:"",pageSum:"",pagePlace:""});
+     
+     document.getElementById("lId2").innerHTML="problem 3  size=300";
+     problems.push({loc:"./problems/equTri.js",call:function(){equTri()},siz:"300",numProb:"",pageSum:"",pagePlace:""});
+
+   
+
+
+     
+     
+    //**********END STEP 3: WRITE PROBLEM INFO HERE END********** 
+   
+    
+    document.getElementById("submitBtn").onclick = function(){      
+        boxes.style.display="none";
+        submitBtn.style.display="none";      
+        printBtn.style.display="inline";
+       
+      
+        for(let i = 0; i < problems.length; i++){             
+            if(document.getElementById("nId"+i).value>0){
+        //Adding to problemSelect Array  numProb
+            var val=document.getElementById("nId"+i).value;
+            problems[i].numProb=val;           
+                if(problems[i].numProb>0){
+                    problemsSelect.push(problems[i]);
+                }                                   
+            }   
+        }   
+      
+        //Sorting problem based on numProb     
+        problemsSelect.sort(function(a,b){
+            return parseFloat(a.numProb)-parseFloat(b.numProb);
+        });
+          
+       
+        // Adding to problemSelect Array pageSum
+        let pageLength = 770;
+        let numOfPages = 10;
+        let sumSiz=0;
+        
+       
+        for(let i=0;i<problemsSelect.length;i++){               
+            sumSiz+=parseFloat(problemsSelect[i].siz);                      
+            problemsSelect[i].pageSum=sumSiz;                        
+        }
+       
+  
+     let sumP1=0;
+     let sumP2=0;
+     let sumP3=0;
+     let sumP4=0;
+     let sumP5=0;
+     let sumP6=0;
+     let sumP7=0;
+     let sumP8=0;
+     let sumP9=0;
+     let sumP10=0;
+
+
+    //  !!!Problem is here
+        for(let i=0; i<problemsSelect.length;i++){
+            if(problemsSelect[i].pageSum<=pageLength)
+            {   problemsSelect[i].pagePlace="1";
+                sumP1=pageLength-problemsSelect[i].pageSum;              
+            }
+            
+            
+            
+            
+            else if(problemsSelect[i].pageSum+sumP1<=pageLength*2){
+                problemsSelect[i].pagePlace="2";
+                 sumP2=pageLength*2-problemsSelect[i].pageSum;                          
+            }else if(problemsSelect[i].pageSum+sumP2<=pageLength*3){
+                problemsSelect[i].pagePlace="3";
+                 sumP3=pageLength*3-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP3<=pageLength*4){
+                problemsSelect[i].pagePlace="4";
+                 sumP4=pageLength*4-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP4<=pageLength*5){
+                problemsSelect[i].pagePlace="5";
+                 sumP5=pageLength*5-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP5<=pageLength*6){
+                problemsSelect[i].pagePlace="6";
+                 sumP6=pageLength*6-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP6<=pageLength*7){
+                problemsSelect[i].pagePlace="7";
+                 sumP7=pageLength*7-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP7<=pageLength*8){
+                problemsSelect[i].pagePlace="8";
+                 sumP8=pageLength*8-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP8<=pageLength*9){
+                problemsSelect[i].pagePlace="9";
+                 sumP9=pageLength*9-problemsSelect[i].pageSum;                          
+            }
+            else if(problemsSelect[i].pageSum+sumP9<=pageLength*10){
+                problemsSelect[i].pagePlace="10";
+                 sumP10=pageLength*10-problemsSelect[i].pageSum;                          
+            }
+        }
+        
+         //Page breaks for printing         
+          let breakPage1=document.createElement("p");
+          breakPage1.setAttribute("id","style");
+          breakPage1.id="break1";
+          breakPage1.style="page-break-after: always";
+          let breakPage2=document.createElement("p");
+          breakPage2.setAttribute("id","style");
+          breakPage2.id="break2";
+          breakPage2.style="page-break-after: always";
+          let breakPage3=document.createElement("p");
+          breakPage3.setAttribute("id","style");
+          breakPage3.id="break3";
+          breakPage3.style="page-break-after: always";
+          let breakPage4=document.createElement("p");
+          breakPage4.setAttribute("id","style");
+          breakPage4.id="break4";
+          breakPage4.style="page-break-after: always";
+          let breakPage5=document.createElement("p");
+          breakPage5.setAttribute("id","style");
+          breakPage5.id="break5";
+          breakPage5.style="page-break-after: always";
+          let breakPage6=document.createElement("p");
+          breakPage6.setAttribute("id","style");
+          breakPage6.id="break6";
+          breakPage6.style="page-break-after: always";
+          let breakPage7=document.createElement("p");
+          breakPage7.setAttribute("id","style");
+          breakPage7.id="break7";
+          breakPage7.style="page-break-after: always";
+          let breakPage8=document.createElement("p");
+          breakPage8.setAttribute("id","style");
+          breakPage8.id="break8";
+          breakPage8.style="page-break-after: always";
+          let breakPage9=document.createElement("p");
+          breakPage9.setAttribute("id","style");
+          breakPage9.id="break9";
+          breakPage9.style="page-break-after: always";
+          let breakPage10=document.createElement("p");
+          breakPage10.setAttribute("id","style");
+          breakPage10.id="break10";
+          breakPage10.style="page-break-after: always";
+        
+          loadPage1();
+          loadPage2();
+          loadPage3();
+          loadPage4();
+          loadPage5();
+          loadPage6();
+          loadPage7();
+          loadPage8();
+          loadPage9();
+          loadPage10();
+          
+             function loadPage1(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==1){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);              
+                        problemsSelect[i].call(); 
+                        document.body.appendChild(breakPage1);                                          
+                    }
+                }  
+                                         
+            }
+
+            function loadPage2(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==2){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call();  
+                        document.body.appendChild(breakPage2); 
+                                                                    
+                    }
+                }                           
+            }
+            
+            function loadPage3(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==3){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call(); 
+                        document.body.appendChild(breakPage3);
+                                                                   
+                    }
+                }                              
+            }
+
+            function loadPage4(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==4){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call(); 
+                        document.body.appendChild(breakPage4);
+                                                                  
+                    }
+                }                               
+            }
+
+            function loadPage5(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==5){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call();
+                        document.body.appendChild(breakPage5);                                               
+                    }
+                }                             
+            }
+
+            function loadPage6(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==6){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call(); 
+                        document.body.appendChild(breakPage6);                     
+                    }
+                }                             
+            }
+
+            function loadPage7(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==7){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call();   
+                        document.body.appendChild(breakPage7);                                                
+                    }
+                }                            
+            }
+            
+            function loadPage8(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==8){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call();   
+                        document.body.appendChild(breakPage8);                                             
+                    }
+                }                               
+            }
+
+            function loadPage9(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==9){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call();
+                        document.body.appendChild(breakPage9);                                                  
+                    }
+                }                          
+            }
+
+            function loadPage10(){
+                for(let i=0; i<problemsSelect.length; i++){
+                    if(problemsSelect[i].pagePlace==10){
+                        let numberProb = document.createElement("p");
+                        numberProb.innerHTML=problemsSelect[i].numProb+".";
+                        document.body.appendChild(numberProb);     
+                        problemsSelect[i].call(); 
+                        document.body.appendChild(breakPage10);                                            
+                    }
+                }                               
+            }      
+    }
+
+    document.getElementById("printBtn").onclick = function(){  
+        resetAllBtn.style.display="none";
+        submitBtn.style.display="none";
+        printBtn.style.display="none";
+        
+        document.getElementById("headWSPag").style.display="none"
+    window.print(); 
+    resetAllBtn.style.display="inline";
+    }  
+
+    document.getElementById("resetAllBtn").onclick = function(){  
+        document.location.reload();
+        reloadPage();  
+    }         
+</script>
+    
+
+   
+   
+</body>
+</html>

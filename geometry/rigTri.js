@@ -1,4 +1,5 @@
-export function drawRigTri(ctx,x,y,wid,hei,clr){
+//drawRigTri(ctx,x,y,wid,hei,clr
+function drawRigTri(ctx,x,y,wid,hei,clr){
     ctx.lineWidth=2;
     ctx.fillStyle=clr;
     ctx.strokeStyle="black";

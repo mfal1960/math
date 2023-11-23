@@ -1,4 +1,4 @@
-function circleGrid(){
+export function circleGrid(){
   //Cosntruct circle	
 	this.x=0, this.y=0, this.rad=5, this.squSiz=20, this.lineWid=1, this.startAng=0, this.endAng=6.28, this.anticlockwis=false, this.fillSty="white", this.alpha, this.strokeSty="black", this.grid=true;
 	this.render = function(ctx, x, y, rad, squSiz, lineWid, startAng, endAng, anticlockwis, fillSty, alpha, strokeSty, grid){
